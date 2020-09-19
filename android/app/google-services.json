@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "305631011337",
+    "firebase_url": "https://mrdlaundry.firebaseio.com",
+    "project_id": "mrdlaundry",
+    "storage_bucket": "mrdlaundry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305631011337:android:ba4ca5a28a5d6bdbd3ced8",
+        "android_client_info": {
+          "package_name": "com.instadevelop.mrdironingservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305631011337-1gb4quq1i7iia3p7vgrfnjgj1lkq21oj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAb9gF-CwYDRxB34Zq0PmZZEQlJNIfSTcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305631011337-1gb4quq1i7iia3p7vgrfnjgj1lkq21oj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
