@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, Text, FlatList, Image, Alert } from 'react-native';
 import { Container, Header, Content, Left, Body, Right, Title, Button as Btn, Icon, Footer, ListItem } from 'native-base';
-import { api_url, place_order, payment_list, img_url, stripe_payment } from '../config/Constants';
+import { api_url, place_order, payment_list, img_url, stripe_payment,create_razorpay_order,razorpay_secret,razorpay_keyid,logo_url,validate_payment } from '../config/Constants';
 import * as colors from '../assets/css/Colors';
 import { Loader } from '../components/GeneralComponents';
 import { Button } from 'react-native-elements';
@@ -14,6 +14,8 @@ import RadioForm from 'react-native-simple-radio-button';
 import { CommonActions, TabActions } from '@react-navigation/native';
 import stripe from 'tipsi-stripe';
 import strings from "../languages/strings.js";
+import RazorpayCheckout from 'react-native-razorpay';
+
 
 class Payment extends Component<Props> {
 
@@ -22,6 +24,8 @@ class Payment extends Component<Props> {
       this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
       this.select_payment_method = this.select_payment_method.bind(this);
       this.move_orders = this.move_orders.bind(this);
+      this.razorpay = this.razorpay.bind(this)
+      this.getOrderId = this.getOrderId.bind(this)
       this.state={
         payment_mode:1
       }
@@ -70,7 +74,6 @@ class Payment extends Component<Props> {
       await this.props.stripeSuccess(response.data.result);
     })
     .catch(error => {
-      console.log(error.response.data)
       alert(strings.sorry_something_went_wrong);
       this.props.stripeError(error);
     });
@@ -140,10 +143,56 @@ class Payment extends Component<Props> {
     if(this.state.payment_mode == 1){
       this.place_order('cash');
     }else if(this.state.payment_mode == 2){
-      this.stripe_card();
+      this.razorpay();
     }
   }
 
+  async getOrderId(amount){
+    return await axios.post(api_url+create_razorpay_order,{
+        "amount":amount
+    }).then(response => {
+      const {order_id} = response.data 
+      return order_id
+    }).catch(error => {
+      console.log(error.response.data)
+    })
+  }
+
+  async razorpay(){
+    this.props.orderServicePending();
+    var amount = parseInt(this.props.total+"00")
+    var order_id = await this.getOrderId(amount)
+    var email = global.customer_name+"@gmail.com"
+    var phone_number = global.phone_number
+    var options = {
+      description: 'Payment for Laundry',
+      image: "https://cdn.razorpay.com/logos/FfcvoTshYJgjM0_original.png",
+      currency: 'INR',
+      key: global.RAZORPAY_KEYID,
+      amount: amount,
+      name: strings.app_name,
+      order_id: order_id,//Replace this with an order_id created using Orders API. Learn more at https://razorpay.com/docs/api/orders.
+      prefill: {
+        email: email,
+        contact: phone_number,
+        name: global.customer_name
+      },
+      theme: {color: '#528FF0'}
+    }
+    RazorpayCheckout.open(options).then((data) => {
+      const {razorpay_order_id,razorpay_payment_id,razorpay_signature} = data
+      axios.post(api_url+validate_payment,{
+        razorpay_order_id,razorpay_payment_id,razorpay_signature
+      }).then(response => {
+        const {success} = response.data
+        this.place_order('online');
+      }).catch(error => {
+        alert(error.response.data)
+      })
+    }).catch((error) => {
+      alert(error.error.description)
+    });
+  }
   render() {
 
     const { isLoding, error, data, message, status, payments } = this.props

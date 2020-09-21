@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, Text, ScrollView, ImageBackground, TouchableOpacity, Image, Picker, I18nManager} from 'react-native';
+import { View, StyleSheet, Text, ScrollView, ImageBackground, TouchableOpacity, Image, Picker, I18nManager,TouchableHighlight} from 'react-native';
 import { StatusBar, Loader } from '../components/GeneralComponents';
 import { img_url, api_url, service, completed_icon, active_icon } from '../config/Constants';
 import * as colors from '../assets/css/Colors';
@@ -17,6 +17,7 @@ import RNRestart from 'react-native-restart';
 import { Badge, Icon, withBadge } from 'react-native-elements'
 
 
+
 class Home extends Component<Props>{
 
   constructor(props) {
@@ -30,10 +31,13 @@ class Home extends Component<Props>{
       }
   }
 
+  
+
   async componentDidMount(){
     this._unsubscribe=this.props.navigation.addListener('focus',async ()=>{
       this.Service(); 
     });
+    
   }
 
   componentWillUnmount(){
@@ -66,7 +70,6 @@ class Home extends Component<Props>{
       data:{ customer_id : global.id, lang: global.lang }
     })
     .then(async response => {
-      console.log(response.data)
       this.setState({ dataSource: response.data.banner_images, active_order:response.data.order.active, completed_order:response.data.order.completed });
       await this.props.serviceActionSuccess(response.data)
     })
@@ -101,6 +104,7 @@ class Home extends Component<Props>{
     const { isLoding, error, data, message, status } = this.props
     const BadgedIcon = withBadge(10)(Icon);
     var qty = 0;
+
     Object.keys(this.props.cart_items).map(item =>  qty += this.props.cart_items[item].qty )
     const service_list = data.map((row) => {
       var service_image = img_url + row.image;
@@ -124,12 +128,17 @@ class Home extends Component<Props>{
         <Header androidStatusBarColor={colors.theme_bg} 
             style={styles.header}>
             <Title style={styles.title} >{strings.app_name}</Title>
-            <Text>Your Cart: {qty}</Text>
+              <Icon
+              name='shopping-bag'
+              type='font-awesome-5'
+              color='#517fa4'
+              size={27}
+            />
+          <Text style={{padding:5}}>{qty}</Text>
         </Header>
         <Content>
           <Loader visible={isLoding} />
-          
-
+        
           <View>
             <Slideshow 
               arrowSize={0}

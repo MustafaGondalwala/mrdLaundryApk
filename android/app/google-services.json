@@ -8,9 +8,46 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:305631011337:android:ba4ca5a28a5d6bdbd3ced8",
+        "mobilesdk_app_id": "1:305631011337:android:cb104d14ca85e528d3ced8",
         "android_client_info": {
           "package_name": "com.instadevelop.mrdironingservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305631011337-ul68darlnntvib3996skfdneh309rbuv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.instadevelop.mrdironingservice",
+            "certificate_hash": "71447eacbd40e96407e97531bd0584423e5f399f"
+          }
+        },
+        {
+          "client_id": "305631011337-1gb4quq1i7iia3p7vgrfnjgj1lkq21oj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAb9gF-CwYDRxB34Zq0PmZZEQlJNIfSTcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305631011337-1gb4quq1i7iia3p7vgrfnjgj1lkq21oj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305631011337:android:1758f1eb44a59335d3ced8",
+        "android_client_info": {
+          "package_name": "com.menpani.rith_partner"
         }
       },
       "oauth_client": [

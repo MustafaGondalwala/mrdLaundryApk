@@ -21,6 +21,7 @@ class Splash extends Component<Props>{
 
   getToken = async () => {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
+    console.log(fcmToken)
     if (!fcmToken) {
       let fcmToken = await notifications.getToken()
       if (fcmToken) {
@@ -115,7 +116,6 @@ class Splash extends Component<Props>{
       url: api_url + settings
     })
     .then(async response => {
-      console.log(response.data)
         await this.props.serviceActionSuccess(response.data)
     })
     .catch(error => {
@@ -129,9 +129,11 @@ class Splash extends Component<Props>{
    const customer_name = await AsyncStorage.getItem('customer_name');
    const lang = await AsyncStorage.getItem('lang');
    global.currency = parseInt(this.props.data.default_currency);
-   global.min_bill = 50;
-   global.stripe_key = this.props.data.stripe_key;
+   global.min_bill = this.props.data.min_bill;
    global.delivery_charge = this.props.data.delivery_charge;
+
+   global.RAZORPAY_KEYID = this.props.data.RAZORPAY_KEYID;
+   global.RAZORPAY_SECRET = this.props.data.RAZORPAY_SECRET;
 
    
    if(lang != null){
@@ -143,20 +145,20 @@ class Splash extends Component<Props>{
    }
 
    if(user_id !== null){
-      global.id = user_id;
-      global.customer_name = customer_name;
-      this.props.navigation.dispatch(
-        CommonActions.reset({
-            index: 0,
-            routes: [{name: "AppDemo"}],
-        })
-      );
-   }else{
+    global.id = user_id;
+    global.customer_name = customer_name;
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+          index: 0,
+          routes: [{name: "Home"}],
+      })
+    );
+  }else{
       global.id = '';
       this.props.navigation.dispatch(
         CommonActions.reset({
             index: 0,
-            routes: [{name: "AppDemo"}],
+            routes: [{name: "Login"}],
         })
       );
     }

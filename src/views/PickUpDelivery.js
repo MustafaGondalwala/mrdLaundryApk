@@ -30,10 +30,19 @@ class PickUpDelivery extends Component<Props> {
         deliveryDatePickerVisible : false,
         deliveryDatePickerTimeVisible: false,
         pickupDatePickerVisible:false,
-        pickupDatePickerTimeVisible:false
+        pickupDatePickerTimeVisible:false,
+        service_id:null
       }
   }
-
+  componentDidMount(){
+    var service_id = null;
+    // Object.keys(this.props.cart_items).map(item => service_id =  this.props.cart_items[item].service_id ) 
+    Object.keys(this.props.cart_items).map(item => console.log(this.props.cart_items[item]) ) 
+    this.setState({
+      service_id
+    })
+    console.log(this.getCurrentTime());
+  }
   showDeliveryDatePicker = () => {
     this.setState({ deliveryDatePickerVisible: true });
   };
@@ -52,6 +61,12 @@ class PickUpDelivery extends Component<Props> {
   showPickupDateTimePicker = () => {
     this.setState({ pickupDateTimePickerVisible: true });
   }
+  getCurrentTime = () => {
+   console.log(new Date().getHours()) 
+  }
+
+
+
   hideDeliveryDatePicker = () => {
     this.setState({ deliveryDatePickerVisible: false, deliveryDatePickerTimeVisible:false});
   };
@@ -166,10 +181,8 @@ class PickUpDelivery extends Component<Props> {
   }
 
   render() {
-
     const { isLoding, error, data, message, status, cart_items, cart_count, navigation } = this.props
     const {delivery_date,delivery_time,pickup_time,pickup_date } = this.props
-    
     return (
       <Container>
         <Header androidStatusBarColor={colors.theme_bg} style={styles.header} >
@@ -259,7 +272,7 @@ class PickUpDelivery extends Component<Props> {
                         buttonStyle={delivery_time != strings.time_2 ? styles.normal_button: styles.current_button}
                         onPress={() => this.updateDeliveryTime(strings.time_2)}
                         titleStyle={{ color:colors.theme_fg }} />
-                    
+
                     <Button type="outline"
                         title={strings.time_3}
                         buttonStyle={delivery_time != strings.time_3 ? styles.normal_button: styles.current_button}

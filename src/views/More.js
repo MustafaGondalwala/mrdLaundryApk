@@ -6,6 +6,7 @@ import { Divider } from '../components/GeneralComponents';
 import { menus } from '../config/Constants';
 import Dialog from "react-native-dialog";
 import strings from "../languages/strings.js";
+import {  Icon as SecondIcon } from 'react-native-elements'
 
 export default class More extends Component<Props> {
 
@@ -17,36 +18,44 @@ export default class More extends Component<Props> {
           {
             menu_name: strings.manage_addresses,
             icon: 'pin',
+            type:1,
             route:'AddressList'
           },
           {
             menu_name: strings.faq,
-            icon: 'help',
+            icon: 'question-circle',
+            type:2,
             route:'Faq'
           },
           {
             menu_name: strings.privacy_policy,
             icon: 'alert',
+            type:1,
             route:'PrivacyPolicy'
           },
           {
             menu_name: strings.change_language,
             icon: 'language',
+            type:2,
             route:'ChangeLanguage'
           },
           {
             menu_name: strings.feedback,
-            icon: 'log-out',
+            icon: 'comment-dots',
+            type:2,
             route:'Feedback'
           },
           {
             menu_name: strings.profile,
-            icon: 'profile',
+            icon: 'users',
+            type:2,
+
             route:'Profile'
           },
           {
             menu_name: strings.logout,
             icon: 'log-out',
+            type:1,
             route:'Logout'
           },
           
@@ -109,7 +118,15 @@ export default class More extends Component<Props> {
                 <ListItem icon onPress={() => this.navigate(item.route)}>
                   <Left>
                     <Button style={styles.icon_button}>
-                      <Icon active name={item.icon} />
+
+                    {item.type == 1 && <Icon active name={item.icon} />}
+                    {(item.type == 2 && item.icon == "question-circle") && <SecondIcon type='font-awesome-5' color='white' name={item.icon}/>}
+                    {(item.type == 2 && item.icon == "language") && <SecondIcon type='font-awesome-5' color='white' name={item.icon}/>}
+                    {(item.type == 2 && item.icon == "comment-dots") && <SecondIcon type='font-awesome-5' color='white' name={item.icon}/>}
+                    
+
+                    {(item.type == 2 && item.icon == "users") && <SecondIcon type='font-awesome-5' size={18} color='white' name={item.icon}/>}
+                      
                     </Button>
                   </Left>
                   <Body>

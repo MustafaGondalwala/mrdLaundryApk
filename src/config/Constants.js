@@ -27,6 +27,11 @@ export const feedback = "feedback";
 export const otp = "customer/otp";
 export const customer_feedback = "customer_feedback"
 export const all_landmark = "landmark"
+export const validate_payment = "validate-payment"
+export const create_razorpay_order = "create-razorpay-order"
+
+export const razorpay_keyid = "rzp_test_zIFuxhv4YP8TdO"
+export const razorpay_secret = "eRYxjnNltrQCLvXKQAqEptVO"
 
 
 //Size
@@ -39,6 +44,7 @@ export const height_20 = Math.round(20 / 100 * screenHeight);
 export const height_30 = Math.round(30 / 100 * screenHeight);
 
 //Path
+export const logo_url = "http://mrdironingservices.com/uploads/images/logo.png"
 export const logo = require('.././assets/img/logo_with_name.png');
 export const forgot_password = require('.././assets/img/forgot_password.png');
 export const reset_password = require('.././assets/img/reset_password.png');

@@ -120,6 +120,7 @@ export default class OrderDetails extends Component<Props> {
                 <Text style={styles.delivery_date}>{Moment(this.state.data.delivery_date).format('DD MMM-YYYY')}</Text>
               </Left>
               <Left>
+              {console.log(this.state.data)}
                 <Text style={styles.delivery_date_label}>{strings.delivery_time}</Text>
                 <Text style={styles.delivery_date}>{this.state.data.delivery_time}</Text>
               </Left>

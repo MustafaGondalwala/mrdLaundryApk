@@ -81,8 +81,11 @@ class OtpLogin extends Component<Props>{
      try {
         await AsyncStorage.setItem('user_id', this.props.data.id.toString());
         await AsyncStorage.setItem('customer_name', this.props.data.customer_name.toString());
+        await AsyncStorage.setItem('phone_number', this.props.data.phone_number);
+
         global.id = await this.props.data.id;
         global.customer_name = await this.props.data.customer_name;
+        global.phone_number = await this.props.data.phone_number;
         await this.home();
       } catch (e) {
 
@@ -217,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   logo_content:{
-    height:75, 
+    height:105, 
     width:225
   },
   logo:{

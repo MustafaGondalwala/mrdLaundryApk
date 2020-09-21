@@ -77,6 +77,10 @@ target 'rith_laundry' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'rith_laundryTests' do
     inherit! :complete
     # Pods for testing
